@@ -32,4 +32,4 @@ jobs:
         - name: Docker Run        
           run: | 
             echo docker run -d -p 8080:80 $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}E/$IMAGE_NAME:$IMAGE_TAG
-            sleep 600
+            sleep 120
