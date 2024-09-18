@@ -1,4 +1,4 @@
-name: Exploring Various Workflow Triggers
+name: Exploring Workflow Triggers
 
 on:
     schedule:
