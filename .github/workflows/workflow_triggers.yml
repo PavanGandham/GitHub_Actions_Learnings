@@ -2,7 +2,7 @@ name: Exploring Workflow Triggers
 
 on:
     schedule:
-      - cron: "*/1 * * * *"
+      - cron: "*/15 * * * *"
 #   push
 
 env:
