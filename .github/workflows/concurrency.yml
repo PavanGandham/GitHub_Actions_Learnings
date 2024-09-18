@@ -1,0 +1,35 @@
+name: Exploring Workflow Triggers
+
+on:
+    workflow_dispatch: 
+
+env:
+  CONTAINER_REGISTRY: docker.io
+  DOCKER_USERNAME: pavangandham99
+  IMAGE_NAME: github-actions-nginx
+  IMAGE_TAG: latest 
+
+jobs:
+    docker:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Docker Build
+          run: echo docker build -t $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
+    
+        - name: Docker Login
+          run: echo docker login --username=${{ vars.DOCKER_USERNAME }} --password=${{ secrets.DOCKER_PASSWORD }}
+    
+        - name: Docker Publish
+          run: echo docker push $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}/$IMAGE_NAME:$IMAGE_TAG
+    
+    deploy:
+        needs: docker
+        concurrency:
+            group: production-deployment
+            cancel-in-progress: true
+        runs-on: ubuntu-latest
+        steps:
+        - name: Docker Run        
+          run: | 
+            echo docker run -d -p 8080:80 $CONTAINER_REGISTRY/${{ vars.DOCKER_USERNAME }}E/$IMAGE_NAME:$IMAGE_TAG
+            sleep 600
