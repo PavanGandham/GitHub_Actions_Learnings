@@ -1,4 +1,4 @@
-name: Exploring Workflow Triggers
+name: Exploring Workflow Concurrency
 
 on:
     workflow_dispatch: 
