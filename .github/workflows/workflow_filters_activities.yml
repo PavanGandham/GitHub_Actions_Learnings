@@ -1,0 +1,29 @@
+name: Exploring Workflow Filters and Activities
+
+on:
+    workflow_dispatch:
+    # schedule:
+    #     - cron: "*/59 * * * *"
+# Must use either branchs-ignore or branches not both in push event
+    push:
+        # branches-ignore:
+        #     - feature/*               # feature/add-music, feature/updateImage
+        #     - test/**                 # test/ui/index, test/checkout/payment
+        branches:
+            - main
+            - '!feature/*'            # ignoring pushing to any branch name staring with feature using !
+    pull_request:
+        types:
+            - opened
+            - closed
+        paths-ignore:      # workflow will only run when a pull request that includes a change on any file other than README.md
+            - README.md
+        branches:          # configures you workflow to only run on pull requests that targets specific branches
+            - master
+
+jobs:
+    hello:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Event Name
+          run: echo this workflow/job/step is executed for event type ${{ github.event_name }}
