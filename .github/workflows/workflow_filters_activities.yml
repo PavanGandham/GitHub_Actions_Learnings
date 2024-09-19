@@ -21,6 +21,7 @@ on:
         branches:          # configures you workflow to only run on pull requests that targets specific branches
             - master
 
+
 jobs:
     hello:
         runs-on: ubuntu-latest
