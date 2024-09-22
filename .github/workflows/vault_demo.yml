@@ -1,0 +1,18 @@
+name: Vault Demo
+
+on:
+    workflow_dispatch:
+
+jobs:
+    echo-vault-secret:
+        runs-on: ubuntu-latest
+        steps:
+        - name: Testing Secrets  # before running this workflow create a vault account and add the secret in it and sync and authorize to github account to show case that secret in github
+          run: |
+            if [[ -z "${{ secrets.AWS_API_KEY }}" ]]; then
+                echo "Secret Not Found"
+                exit 1
+            else:
+                echo "Secret Found"
+                exit 0
+            fi
